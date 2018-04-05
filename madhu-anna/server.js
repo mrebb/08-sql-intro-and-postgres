@@ -12,8 +12,8 @@ const app = express();
 // const conString = 'postgres://USER:PASSWORD@HOST:PORT/DBNAME';
 
 // Mac:
-// const conString = 'postgres://localhost:5432/articlesdb';
-const conString = 'postgres://postgres:y7t6r5E@localhost:5432/articlesdb';
+const conString = 'postgres://localhost:5432/articlesdb';
+//const conString = 'postgres://postgres:y7t6r5E@localhost:5432/articlesdb';
 
 const client = new pg.Client(conString);
 
@@ -82,8 +82,8 @@ app.put('/articles/:id', (request, response) => {
   // Below set of lines of code represents numbers (2) & (3) & (5) of the diagram.
   //updateRecord() method of article.js is interacting with this particular piece of code. This represents the 'update' part of CRUD operations. 
   client.query(
-    `UPDATE articles SET title = 'test' WHERE article_id = $1`,
-    [request.body.title]
+    `UPDATE articles SET title = 'test' WHERE article_id = $1;`,
+    [request.params.id]
   )
     .then(() => {
       response.send('update complete')
@@ -115,7 +115,7 @@ app.delete('/articles', (request, response) => {
   //deleteRecord() method of article.js is interacting with this particular piece of code. This represents the 'delete' part of CRUD operations.
   client.query(
     `DELETE FROM articles;`,
-    [request.params.id]
+    []
   )
     .then(() => {
       response.send('Delete complete')
