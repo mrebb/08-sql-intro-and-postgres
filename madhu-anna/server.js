@@ -115,7 +115,7 @@ app.delete('/articles', (request, response) => {
   //deleteRecord() method of article.js is interacting with this particular piece of code. This represents the 'delete' part of CRUD operations.
   client.query(
     `DELETE FROM articles;`,
-    [request.params.id]
+    []
   )
     .then(() => {
       response.send('Delete complete')
